@@ -107,7 +107,7 @@ router.get(
 // response - not found
 app.use(async (ctx) => {
   // throw new Error('endpoint not found');
-  ctx.throw(404, JSON.stringify({ msg: '22gamithike o dias', kolo: 'mouni' }));
+  ctx.throw(404, JSON.stringify({ msg: 'oppps not found' }));
 });
 
 // -----------------------------------------------------------------------------
