@@ -1,13 +1,13 @@
 ###
-GET http://localhost:3000/api
+GET http://localhost:5555/api
 Content-Type: application/json
 
 ###
-GET http://localhost:3000/api/test
+GET http://localhost:5555/api/test
 Content-Type: application/json
 
 ###
-POST http://localhost:3000/api/paok
+POST http://localhost:5555/api/paok
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/api/check/3244?paok=4&re=mounia
+GET http://localhost:5555/api/check/3244?paok=4&re=mounia
 Content-Type: application/json
 
 {

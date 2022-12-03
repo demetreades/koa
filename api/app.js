@@ -7,30 +7,33 @@ import ratelimit from 'koa-ratelimit';
 import helmet from 'koa-helmet';
 import logger from 'koa-pino-logger';
 
+import config from './config.js';
+import mongodb from './mongodb.js';
+
+const loggerConfig = {
+  name: config.api.env,
+  level: 'debug',
+  // serializers: {
+  //   req: undefined.req,
+  //   res: stdSerializers.res,
+  //   cause: stdSerializers.err,
+  // },
+  transport: {
+    target: 'pino-pretty',
+    options: {
+      colorize: true,
+      ignore: 'pid,hostname,service',
+      translateTime: 'SYS:mm-dd-yyyy HH:MM:ss',
+    },
+  },
+};
+
 const app = new Koa();
 const router = new Router({ prefix: '/api' });
 
 app.use(cors()); // https://www.npmjs.com/package/@koa/cors
 app.use(helmet()); // https://www.npmjs.com/package/koa-helmet
-app.use(
-  logger({
-    name: 'koa debug logger',
-    level: 'debug',
-    // serializers: {
-    //   req: undefined.req,
-    //   res: stdSerializers.res,
-    //   cause: stdSerializers.err,
-    // },
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        colorize: true,
-        ignore: 'pid,hostname,service',
-        translateTime: 'SYS:mm-dd-yyyy HH:MM:ss',
-      },
-    },
-  })
-);
+app.use(logger(loggerConfig));
 
 // req-logger
 // app.use(async (ctx, next) => {
@@ -52,7 +55,7 @@ app.use(
     driver: 'memory',
     db: new Map(),
     duration: 60_000,
-    errorMessage: 'Sometimes You Just Have to Slow Down.',
+    errorMessage: 'too many requests !',
     id: (ctx) => ctx.ip,
     // headers: {
     //   remaining: 'Rate-Limit-Remaining',
@@ -70,6 +73,7 @@ app.use(
   })
 );
 
+// ROUTER ----------------------------------------------------------------------
 app.use(router.routes()).use(router.allowedMethods());
 
 router.get('check', '/check/:id', async (ctx) => {
@@ -106,9 +110,11 @@ app.use(async (ctx) => {
   ctx.throw(404, JSON.stringify({ msg: '22gamithike o dias', kolo: 'mouni' }));
 });
 
+// -----------------------------------------------------------------------------
+
 // run server
-app.listen(3000, () => {
-  console.log('Koa app started on port 3000');
+app.listen(config.api.port, () => {
+  console.log(`Koa app started on port ${config.api.port}`);
 });
 
 // error handling

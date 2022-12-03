@@ -1,0 +1,8 @@
+api:
+  env: development
+  port: 5555
+mongodb:
+  username: root
+  password: password
+  uri: 'mongodb://172.17.0.1:27017'
+  port: 27017
