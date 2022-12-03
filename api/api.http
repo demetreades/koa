@@ -11,13 +11,13 @@ POST http://localhost:5555/api/paok
 Content-Type: application/json
 
 {
-  "body2": "edww2wwre"
+  "body2": "asdasdasdasd"
 }
 
 ###
-GET http://localhost:5555/api/check/3244?paok=4&re=mounia
+GET http://localhost:5555/api/check/3244?you=22&me=256
 Content-Type: application/json
 
 {
-  "to_body": "edwwwwre"
+  "to_body": "asdasdasd2d2"
 }

@@ -4,5 +4,5 @@ api:
 mongodb:
   username: root
   password: password
-  uri: 'mongodb://172.17.0.1:27017'
+  host: '172.20.0.2'
   port: 27017
